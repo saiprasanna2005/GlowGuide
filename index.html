@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowGuide — Your Personal Beauty Planner</title>
+<meta name="description" content="GlowGuide is a personal beauty planning dashboard for routines, events, products and journaling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<header class="landing-nav">
+  <a href="index.html" class="brand"><span class="dot"></span> GlowGuide</a>
+  <div class="flex gap-md center">
+    <a href="dashboard.html" class="btn btn-ghost btn-sm">Open Dashboard</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-copy scale-in">
+    <span class="eyebrow">Beauty planning, organized</span>
+    <h1>Plan your routine.<br>Track your <em>glow</em>.<br>Feel your best.</h1>
+    <p class="lede">GlowGuide is a personal beauty planner for the parts of your routine that actually take thought — skincare steps, event prep, the products you love, and how it all adds up over time.</p>
+    <div class="hero-actions">
+      <a href="profile.html" class="btn btn-primary">Start My Glow Journey</a>
+      <a href="#" id="demoBtn" class="btn btn-ghost">Explore Demo</a>
+    </div>
+    <p class="hero-note">No sign-up. No servers. Everything stays on this device.</p>
+  </div>
+
+  <div class="hero-visual scale-in" style="animation-delay:.1s">
+    <div class="hero-orb" aria-hidden="true"></div>
+    <div class="hero-card-float c1" aria-hidden="true">
+      <div class="flex center gap-sm">
+        <span style="font-size:1.4rem">✨</span>
+        <div>
+          <div style="font-weight:700;font-size:.85rem">78% Glow Consistency</div>
+          <div class="muted">6-day streak</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-card-float c2" aria-hidden="true">
+      <div style="font-weight:700;font-size:.85rem">👑 Cousin's Wedding</div>
+      <div class="muted">Prep begins in 7 days</div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="section-head" style="justify-content:center;text-align:center;flex-direction:column">
+    <span class="eyebrow" style="margin:0 auto 8px">Everything in one place</span>
+    <h2 style="font-size:1.9rem">Built for the way beauty routines actually work</h2>
+  </div>
+  <div class="features-grid stagger">
+    <div class="feature-card scale-in">
+      <span class="fi">✨</span>
+      <h3>Personalized Routine</h3>
+      <p>Morning and evening steps you actually keep, built around your time and style.</p>
+    </div>
+    <div class="feature-card scale-in">
+      <span class="fi">👑</span>
+      <h3>Event Preparation</h3>
+      <p>A countdown-driven timeline for weddings, parties and shoots — done in stages.</p>
+    </div>
+    <div class="feature-card scale-in">
+      <span class="fi">📖</span>
+      <h3>Beauty Journal</h3>
+      <p>Capture the look, the mood, the notes — a timeline of your glow over time.</p>
+    </div>
+    <div class="feature-card scale-in">
+      <span class="fi">💄</span>
+      <h3>Product Collection</h3>
+      <p>Your full beauty vault: skincare to fragrance, rated, favorited, searchable.</p>
+    </div>
+    <div class="feature-card scale-in">
+      <span class="fi">📊</span>
+      <h3>Progress Insights</h3>
+      <p>See your habits take shape — streaks, consistency, and what's working.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" style="padding-top:0">
+  <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--grad-glow);border:none">
+    <div>
+      <h2 style="color:#fff;margin-bottom:6px">Ready to start your glow journey?</h2>
+      <p style="color:rgba(255,255,255,.9);margin:0">Set up your beauty profile in under two minutes.</p>
+    </div>
+    <a href="profile.html" class="btn btn-primary" style="background:#fff;color:var(--ink)">Get Started</a>
+  </div>
+</section>
+
+<footer class="landing-foot">
+  GlowGuide — a personal beauty planner. Not a medical or dermatology tool. All data stays on your device.
+</footer>
+
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script>
+  document.getElementById('demoBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    // GlowGuide now requires a real account so your data can be saved
+    // securely — "Explore Demo" creates one, then the dashboard offers
+    // to populate it with fictional data (also available any time from
+    // Settings > Load Demo Data).
+    sessionStorage.setItem('gg_wants_demo', '1');
+    window.location.href = 'register.html';
+  });
+</script>
+</body>
+</html>

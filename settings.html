@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings — GlowGuide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+</head>
+<body>
+<div class="app-shell">
+  <div class="sidebar-overlay"></div>
+  <aside class="sidebar">
+  <button class="btn-icon sidebar-close" aria-label="Close menu">✕</button>
+  <a href="index.html" class="sidebar-brand"><span style="font-size:1.4rem">✨</span><span>GlowGuide</span></a>
+  <nav aria-label="Primary">
+    <a class="nav-link" data-nav-link="dashboard" href="dashboard.html"><span class="ic">🏠</span> Dashboard</a>
+    <a class="nav-link" data-nav-link="routine" href="routine.html"><span class="ic">✨</span> My Routine</a>
+    <a class="nav-link" data-nav-link="planner" href="planner.html"><span class="ic">👑</span> Glam Planner</a>
+    <a class="nav-link" data-nav-link="vault" href="vault.html"><span class="ic">💄</span> Beauty Vault</a>
+    <a class="nav-link" data-nav-link="journal" href="journal.html"><span class="ic">📖</span> Beauty Journal</a>
+    <a class="nav-link" data-nav-link="looks" href="looks.html"><span class="ic">🌷</span> Look Planner</a>
+    <a class="nav-link" data-nav-link="insights" href="insights.html"><span class="ic">📊</span> Insights</a>
+    <a class="nav-link" data-nav-link="settings" href="settings.html"><span class="ic">⚙️</span> Settings</a>
+  </nav>
+  <div class="sidebar-foot">
+    <div class="flex center gap-sm">
+      <div class="avatar-circle" data-user-initial>G</div>
+      <div>
+        <div style="font-weight:700;font-size:.86rem" data-user-name>Beautiful</div>
+        <div class="muted">Glow member</div>
+      </div>
+    </div>
+  </div>
+
+  </aside>
+  <div class="main-area">
+    <header class="topbar">
+      <div class="flex center gap-md">
+        <button class="btn-icon hamburger" aria-label="Open menu">☰</button>
+        <h1>Settings</h1>
+      </div>
+      <div class="topbar-actions">
+        
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle theme">🌙</button>
+      </div>
+    </header>
+    <main class="page-content">
+<section class="section grid grid-2">
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-bottom:16px">Profile</h2>
+    <div class="flex gap-md center" style="margin-bottom:16px">
+      <div class="avatar-circle" data-user-initial style="width:52px;height:52px;font-size:1.3rem">G</div>
+      <div>
+        <div style="font-weight:700" data-user-name>Beautiful</div>
+        <div class="muted" id="profileGoalsSummary">No goals set</div>
+      </div>
+    </div>
+    <a href="profile.html" class="btn btn-soft btn-sm">Edit Profile</a>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-bottom:16px">Appearance</h2>
+    <div class="flex-between" style="margin-bottom:6px">
+      <div>
+        <div style="font-weight:700">Theme</div>
+        <div class="muted">Switch between light and dark</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="themeToggleSettings">Toggle</button>
+    </div>
+  </div>
+</section>
+
+<section class="section grid grid-2">
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-bottom:16px">Notifications</h2>
+    <label class="checkline" style="margin-bottom:8px">
+      <input type="checkbox" id="notifToggle">
+      <span>Remind me about my routines and events</span>
+    </label>
+    <p class="muted" style="margin:0">This is a UI preference only — GlowGuide runs fully offline and sends no real notifications.</p>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-bottom:16px">Demo Data</h2>
+    <p style="margin-bottom:14px">Populate GlowGuide with fictional products, routines and a journal entry to explore the app.</p>
+    <button class="btn btn-soft" id="loadDemoBtn">Load Demo Data</button>
+  </div>
+</section>
+
+<section class="section grid grid-2">
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-bottom:16px">Data Export &amp; Import</h2>
+    <p style="margin-bottom:14px">Back up everything as a JSON file, or restore from a previous export.</p>
+    <div class="flex gap-sm flex-wrap">
+      <button class="btn btn-ghost btn-sm" id="exportBtn">Export Data (JSON)</button>
+      <label class="btn btn-ghost btn-sm" style="cursor:pointer">Import Data
+        <input type="file" id="importInput" accept="application/json" class="hidden">
+      </label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-bottom:16px;color:var(--danger)">Danger Zone</h2>
+    <div class="flex gap-sm flex-wrap">
+      <button class="btn btn-danger btn-sm" id="clearDemoBtn">Clear Demo Data</button>
+      <button class="btn btn-danger btn-sm" id="resetAppBtn">Reset Application</button>
+    </div>
+    <p class="muted" style="margin-top:12px;margin-bottom:0">Resetting removes everything: profile, routines, events, vault, journal and looks.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="card">
+    <h2 style="font-size:1.05rem;margin-bottom:16px">Send Feedback</h2>
+    <p style="margin-bottom:16px">Spot something off, or have an idea for GlowGuide? Let us know.</p>
+    <form id="feedbackForm">
+      <div class="grid grid-2">
+        <div class="field">
+          <label for="fbName">Name</label>
+          <input type="text" id="fbName" required>
+        </div>
+        <div class="field">
+          <label for="fbEmail">Email</label>
+          <input type="text" id="fbEmail" required>
+        </div>
+      </div>
+      <div class="field mt-0">
+        <label for="fbMessage">Message</label>
+        <textarea id="fbMessage" placeholder="What's on your mind?" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-sm" id="fbSubmitBtn">Send Feedback</button>
+    </form>
+  </div>
+</section>
+
+    </main>
+  </div>
+</div>
+<nav class="bottom-nav" aria-label="Primary mobile">
+  <a data-nav-link="dashboard" href="dashboard.html"><span class="ic">🏠</span>Home</a>
+  <a data-nav-link="routine" href="routine.html"><span class="ic">✨</span>Routine</a>
+  <a data-nav-link="planner" href="planner.html"><span class="ic">👑</span>Glam</a>
+  <a data-nav-link="vault" href="vault.html"><span class="ic">💄</span>Vault</a>
+  <a data-nav-link="looks" href="looks.html"><span class="ic">🌷</span>Looks</a>
+  <a data-nav-link="insights" href="insights.html"><span class="ic">📊</span>Insights</a>
+</nav>
+
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script>
+  GG.requireProfile().then(function (ok) {
+    if (!ok) return;
+    GG.loadPageScripts(['js/demo.js', 'js/settings.js'], function () {
+      GG.initShell('settings');
+    });
+  });
+</script>
+</body>
+</html>

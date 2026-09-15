@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In — GlowGuide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<style>
+  .onboard-wrap{ max-width:460px; margin:0 auto; padding: 8vh 24px 10vh; }
+  .onboard-head{ text-align:center; margin-bottom:34px; }
+  .auth-switch{ text-align:center; margin-top:18px; font-size:.9rem; color:var(--ink-soft); }
+  .auth-switch a{ color:var(--lavender-deep); font-weight:700; }
+  .field-error{ color:var(--danger); font-size:.82rem; margin-top:6px; display:none; }
+  .field-error.show{ display:block; }
+</style>
+</head>
+<body>
+
+<div class="onboard-wrap">
+  <div class="onboard-head">
+    <span class="eyebrow">✨ GlowGuide</span>
+    <h1 style="font-size:1.9rem;margin-top:.3em">Welcome back</h1>
+    <p>Log in to pick up your routine where you left off.</p>
+  </div>
+
+  <div class="card">
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="you@example.com" autocomplete="email" required>
+      </div>
+      <div class="field" style="margin-bottom:8px">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Your password" autocomplete="current-password" required>
+      </div>
+      <div class="field-error" id="formError"></div>
+      <button type="submit" class="btn btn-primary btn-block" id="submitBtn" style="margin-top:10px">Log In</button>
+    </form>
+  </div>
+
+  <p class="auth-switch">New to GlowGuide? <a href="register.html">Create an account</a></p>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script>
+(function () {
+  const form = document.getElementById('loginForm');
+  const errorBox = document.getElementById('formError');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function showError(msg) { errorBox.textContent = msg; errorBox.classList.add('show'); }
+  function clearError() { errorBox.classList.remove('show'); }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    if (!email || !password) { showError('Please enter your email and password.'); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Logging in…';
+
+    const result = await GG.api.post('/auth/login', { email, password });
+
+    if (!result.ok) {
+      showError(result.message || 'Could not log in. Please try again.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Log In';
+      return;
+    }
+
+    const redirectTo = sessionStorage.getItem('gg_redirect_after_login');
+    sessionStorage.removeItem('gg_redirect_after_login');
+    window.location.href = redirectTo || 'dashboard.html';
+  });
+})();
+</script>
+</body>
+</html>

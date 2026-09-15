@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — GlowGuide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <div class="sidebar-overlay"></div>
+  <aside class="sidebar">
+  <button class="btn-icon sidebar-close" aria-label="Close menu">✕</button>
+  <a href="index.html" class="sidebar-brand"><span style="font-size:1.4rem">✨</span><span>GlowGuide</span></a>
+  <nav aria-label="Primary">
+    <a class="nav-link" data-nav-link="dashboard" href="dashboard.html"><span class="ic">🏠</span> Dashboard</a>
+    <a class="nav-link" data-nav-link="routine" href="routine.html"><span class="ic">✨</span> My Routine</a>
+    <a class="nav-link" data-nav-link="planner" href="planner.html"><span class="ic">👑</span> Glam Planner</a>
+    <a class="nav-link" data-nav-link="vault" href="vault.html"><span class="ic">💄</span> Beauty Vault</a>
+    <a class="nav-link" data-nav-link="journal" href="journal.html"><span class="ic">📖</span> Beauty Journal</a>
+    <a class="nav-link" data-nav-link="looks" href="looks.html"><span class="ic">🌷</span> Look Planner</a>
+    <a class="nav-link" data-nav-link="insights" href="insights.html"><span class="ic">📊</span> Insights</a>
+    <a class="nav-link" data-nav-link="settings" href="settings.html"><span class="ic">⚙️</span> Settings</a>
+  </nav>
+  <div class="sidebar-foot">
+    <div class="flex center gap-sm">
+      <div class="avatar-circle" data-user-initial>G</div>
+      <div>
+        <div style="font-weight:700;font-size:.86rem" data-user-name>Beautiful</div>
+        <div class="muted">Glow member</div>
+      </div>
+    </div>
+  </div>
+
+  </aside>
+  <div class="main-area">
+    <header class="topbar">
+      <div class="flex center gap-md">
+        <button class="btn-icon hamburger" aria-label="Open menu">☰</button>
+        <h1>Dashboard</h1>
+      </div>
+      <div class="topbar-actions">
+        
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle theme">🌙</button>
+      </div>
+    </header>
+    <main class="page-content">
+<section class="section">
+  <div class="scale-in" style="margin-bottom:6px">
+    <span class="eyebrow" id="greetingEyebrow">Today</span>
+    <h2 style="font-size:1.7rem;margin-top:.15em" id="greetingHeading">Good morning, Beautiful ✨</h2>
+  </div>
+</section>
+
+<section class="section grid grid-3 top-stats-row" id="topRow">
+  <div class="card scale-in" style="display:flex;align-items:center;gap:20px">
+    <div id="glowRing"></div>
+    <div>
+      <div class="stat-label" style="margin-top:0">Glow Consistency</div>
+      <p style="margin:6px 0 0;font-size:.85rem">A productivity-style score from your last 7 days — not a skin score.</p>
+    </div>
+  </div>
+  <div class="card scale-in" style="animation-delay:.05s">
+    <div class="stat-label" style="margin-top:0">Current Streak</div>
+    <div class="stat-figure" id="streakFigure">0 days</div>
+    <p style="margin-top:8px;font-size:.85rem" id="streakNote">Complete a routine today to start your streak.</p>
+  </div>
+  <div class="card scale-in" style="animation-delay:.1s">
+    <div class="stat-label" style="margin-top:0">Upcoming Event</div>
+    <div id="upcomingEventBox">
+      <div class="stat-figure" style="font-size:1.3rem">No events yet</div>
+      <p style="margin-top:8px;font-size:.85rem">Plan one in the Glam Planner.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Today's Plan</h2>
+    <span class="muted" id="todayDateLabel"></span>
+  </div>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="flex-between" style="margin-bottom:12px">
+        <h3 style="margin:0;font-size:1rem">☀️ Morning Routine</h3>
+        <span class="pill pill-lav" id="morningPill">0/0</span>
+      </div>
+      <div id="morningTasks"></div>
+    </div>
+    <div class="card">
+      <div class="flex-between" style="margin-bottom:12px">
+        <h3 style="margin:0;font-size:1rem">🌙 Evening Routine</h3>
+        <span class="pill pill-rose" id="eveningPill">0/0</span>
+      </div>
+      <div id="eveningTasks"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section grid grid-4" id="quickStats">
+  <div class="card card-tight text-center">
+    <div class="stat-figure" id="statRoutines">0</div>
+    <div class="stat-label">Routines Completed</div>
+  </div>
+  <div class="card card-tight text-center">
+    <div class="stat-figure" id="statStreak">0</div>
+    <div class="stat-label">Current Streak</div>
+  </div>
+  <div class="card card-tight text-center">
+    <div class="stat-figure" id="statEvents">0</div>
+    <div class="stat-label">Upcoming Events</div>
+  </div>
+  <div class="card card-tight text-center">
+    <div class="stat-figure" id="statFavorites">0</div>
+    <div class="stat-label">Favorite Products</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Weekly Progress</h2>
+    <span class="muted">Completion rate, last 7 days</span>
+  </div>
+  <div class="card">
+    <canvas id="weeklyChart" height="90"></canvas>
+  </div>
+</section>
+
+    </main>
+  </div>
+</div>
+<nav class="bottom-nav" aria-label="Primary mobile">
+  <a data-nav-link="dashboard" href="dashboard.html"><span class="ic">🏠</span>Home</a>
+  <a data-nav-link="routine" href="routine.html"><span class="ic">✨</span>Routine</a>
+  <a data-nav-link="planner" href="planner.html"><span class="ic">👑</span>Glam</a>
+  <a data-nav-link="vault" href="vault.html"><span class="ic">💄</span>Vault</a>
+  <a data-nav-link="looks" href="looks.html"><span class="ic">🌷</span>Looks</a>
+  <a data-nav-link="insights" href="insights.html"><span class="ic">📊</span>Insights</a>
+</nav>
+
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script>
+  GG.requireProfile().then(function (ok) {
+    if (!ok) return;
+    GG.loadPageScripts(['js/dashboard.js'], function () {
+      GG.initShell('dashboard');
+    });
+  });
+</script>
+</body>
+</html>

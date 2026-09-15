@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Look Planner — GlowGuide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+</head>
+<body>
+<div class="app-shell">
+  <div class="sidebar-overlay"></div>
+  <aside class="sidebar">
+  <button class="btn-icon sidebar-close" aria-label="Close menu">✕</button>
+  <a href="index.html" class="sidebar-brand"><span style="font-size:1.4rem">✨</span><span>GlowGuide</span></a>
+  <nav aria-label="Primary">
+    <a class="nav-link" data-nav-link="dashboard" href="dashboard.html"><span class="ic">🏠</span> Dashboard</a>
+    <a class="nav-link" data-nav-link="routine" href="routine.html"><span class="ic">✨</span> My Routine</a>
+    <a class="nav-link" data-nav-link="planner" href="planner.html"><span class="ic">👑</span> Glam Planner</a>
+    <a class="nav-link" data-nav-link="vault" href="vault.html"><span class="ic">💄</span> Beauty Vault</a>
+    <a class="nav-link" data-nav-link="journal" href="journal.html"><span class="ic">📖</span> Beauty Journal</a>
+    <a class="nav-link" data-nav-link="looks" href="looks.html"><span class="ic">🌷</span> Look Planner</a>
+    <a class="nav-link" data-nav-link="insights" href="insights.html"><span class="ic">📊</span> Insights</a>
+    <a class="nav-link" data-nav-link="settings" href="settings.html"><span class="ic">⚙️</span> Settings</a>
+  </nav>
+  <div class="sidebar-foot">
+    <div class="flex center gap-sm">
+      <div class="avatar-circle" data-user-initial>G</div>
+      <div>
+        <div style="font-weight:700;font-size:.86rem" data-user-name>Beautiful</div>
+        <div class="muted">Glow member</div>
+      </div>
+    </div>
+  </div>
+
+  </aside>
+  <div class="main-area">
+    <header class="topbar">
+      <div class="flex center gap-md">
+        <button class="btn-icon hamburger" aria-label="Open menu">☰</button>
+        <h1>Look Planner</h1>
+      </div>
+      <div class="topbar-actions">
+        
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle theme">🌙</button>
+      </div>
+    </header>
+    <main class="page-content">
+<section class="section">
+  <p class="muted" style="max-width:560px">Pick an occasion, a style, and how much time you have — GlowGuide builds a step-by-step look plan.</p>
+</section>
+
+<section class="section card">
+  <div class="grid grid-3" style="margin-bottom:22px">
+    <div class="field mt-0" style="margin-bottom:0">
+      <label>Occasion</label>
+      <div class="chip-group" id="occasionChips">
+        <div class="chip selected" data-value="College">College</div>
+        <div class="chip" data-value="Work">Work</div>
+        <div class="chip" data-value="Party">Party</div>
+        <div class="chip" data-value="Wedding">Wedding</div>
+        <div class="chip" data-value="Date">Date</div>
+        <div class="chip" data-value="Photoshoot">Photoshoot</div>
+      </div>
+    </div>
+    <div class="field mt-0" style="margin-bottom:0">
+      <label>Style</label>
+      <div class="chip-group" id="styleChipsLook">
+        <div class="chip selected" data-value="Natural">Natural</div>
+        <div class="chip" data-value="Minimal">Minimal</div>
+        <div class="chip" data-value="Soft Glam">Soft Glam</div>
+        <div class="chip" data-value="Bold">Bold</div>
+        <div class="chip" data-value="Elegant">Elegant</div>
+      </div>
+    </div>
+    <div class="field mt-0" style="margin-bottom:0">
+      <label>Time available</label>
+      <div class="chip-group" id="timeChipsLook">
+        <div class="chip" data-value="5">5 minutes</div>
+        <div class="chip selected" data-value="15">15 minutes</div>
+        <div class="chip" data-value="30">30 minutes</div>
+        <div class="chip" data-value="60">60 minutes</div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" id="generateLookBtn">Generate Look Plan ✨</button>
+</section>
+
+<section class="section" id="lookResultSection" style="display:none">
+  <div class="section-head">
+    <h2 id="lookResultTitle">Your Look Plan</h2>
+    <button class="btn btn-soft btn-sm" id="saveLookBtn">Save this plan</button>
+  </div>
+  <div class="grid grid-2" id="lookSteps"></div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Saved Plans</h2></div>
+  <div id="savedLooksEmpty" class="empty-state hidden">
+    <div class="icon">🌷</div><h3>No saved plans yet</h3><p>Generate a look above and save it for later.</p>
+  </div>
+  <div id="savedLooksGrid" class="grid grid-3"></div>
+</section>
+
+    </main>
+  </div>
+</div>
+<nav class="bottom-nav" aria-label="Primary mobile">
+  <a data-nav-link="dashboard" href="dashboard.html"><span class="ic">🏠</span>Home</a>
+  <a data-nav-link="routine" href="routine.html"><span class="ic">✨</span>Routine</a>
+  <a data-nav-link="planner" href="planner.html"><span class="ic">👑</span>Glam</a>
+  <a data-nav-link="vault" href="vault.html"><span class="ic">💄</span>Vault</a>
+  <a data-nav-link="looks" href="looks.html"><span class="ic">🌷</span>Looks</a>
+  <a data-nav-link="insights" href="insights.html"><span class="ic">📊</span>Insights</a>
+</nav>
+
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script>
+  GG.requireProfile().then(function (ok) {
+    if (!ok) return;
+    GG.loadPageScripts(['js/looks.js'], function () {
+      GG.initShell('looks');
+    });
+  });
+</script>
+</body>
+</html>

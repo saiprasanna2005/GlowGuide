@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beauty Profile — GlowGuide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<style>
+  .onboard-wrap{ max-width:640px; margin:0 auto; padding: 6vh 24px 10vh; }
+  .onboard-head{ text-align:center; margin-bottom:34px; }
+  .progress-track{ height:6px; background:var(--line); border-radius:99px; overflow:hidden; margin-bottom:34px; }
+  .progress-fill{ height:100%; background:var(--grad-glow); border-radius:99px; transition: width .4s cubic-bezier(.4,0,.2,1); }
+  .step{ display:none; }
+  .step.active{ display:block; animation: scale-in .4s cubic-bezier(.4,0,.2,1); }
+  .step-actions{ display:flex; justify-content:space-between; margin-top:30px; }
+</style>
+</head>
+<body>
+
+<div class="onboard-wrap">
+  <div class="onboard-head">
+    <span class="eyebrow">Beauty Profile</span>
+    <h1 style="font-size:1.9rem;margin-top:.3em">Let's set up your glow journey</h1>
+    <p>Two minutes. Nothing here is medical — just how you like to plan.</p>
+  </div>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:16%"></div></div>
+
+  <div id="wizardLoading" class="card text-center" style="padding:50px 24px">
+    <div class="icon" style="font-size:2rem;margin-bottom:10px">✨</div>
+    <p style="margin:0">Loading your account…</p>
+  </div>
+
+  <form id="profileForm" novalidate class="hidden">
+
+    <div class="step active" data-step="1">
+      <div class="card">
+        <div class="field">
+          <label for="name">What should we call you?</label>
+          <input type="text" id="name" placeholder="Your name" required>
+        </div>
+        <div class="field mt-0" style="margin-bottom:0">
+          <label>What are your beauty goals? <span class="muted">(choose any)</span></label>
+          <div class="chip-group" id="goalsChips">
+            <div class="chip" data-value="Everyday freshness">Everyday freshness</div>
+            <div class="chip" data-value="Makeup organization">Makeup organization</div>
+            <div class="chip" data-value="Haircare consistency">Haircare consistency</div>
+            <div class="chip" data-value="Skincare routine consistency">Skincare routine consistency</div>
+            <div class="chip" data-value="Event preparation">Event preparation</div>
+            <div class="chip" data-value="Self-care">Self-care</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="2">
+      <div class="card">
+        <div class="field">
+          <label>Preferred routine length</label>
+          <div class="chip-group" id="lengthChips">
+            <div class="chip" data-value="5 minutes">5 minutes</div>
+            <div class="chip" data-value="15 minutes">15 minutes</div>
+            <div class="chip" data-value="30 minutes">30 minutes</div>
+            <div class="chip" data-value="60 minutes">60 minutes</div>
+          </div>
+        </div>
+        <div class="field mt-0" style="margin-bottom:0">
+          <label>Favorite beauty categories <span class="muted">(choose any)</span></label>
+          <div class="chip-group" id="categoriesChips">
+            <div class="chip" data-value="Skincare">Skincare</div>
+            <div class="chip" data-value="Makeup">Makeup</div>
+            <div class="chip" data-value="Haircare">Haircare</div>
+            <div class="chip" data-value="Fragrance">Fragrance</div>
+            <div class="chip" data-value="Tools">Tools</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="3">
+      <div class="card">
+        <div class="field">
+          <label>Morning or evening routine preference</label>
+          <div class="chip-group" id="timeChips">
+            <div class="chip" data-value="Morning person">Morning person</div>
+            <div class="chip" data-value="Evening person">Evening person</div>
+            <div class="chip" data-value="Both">Both equally</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Makeup style preference</label>
+          <div class="chip-group" id="makeupChips">
+            <div class="chip" data-value="Natural">Natural</div>
+            <div class="chip" data-value="Minimal">Minimal</div>
+            <div class="chip" data-value="Soft Glam">Soft Glam</div>
+            <div class="chip" data-value="Bold">Bold</div>
+            <div class="chip" data-value="Elegant">Elegant</div>
+          </div>
+        </div>
+        <div class="field mt-0" style="margin-bottom:0">
+          <label>Haircare preference</label>
+          <div class="chip-group" id="hairChips">
+            <div class="chip" data-value="Low-maintenance">Low-maintenance</div>
+            <div class="chip" data-value="Styled daily">Styled daily</div>
+            <div class="chip" data-value="Treatment-focused">Treatment-focused</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-actions">
+      <button type="button" class="btn btn-ghost" id="backBtn">Back</button>
+      <button type="button" class="btn btn-primary" id="nextBtn">Continue</button>
+    </div>
+  </form>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script src="js/demo.js"></script>
+<script>
+GG.requireProfile().then(function (ok) {
+  if (!ok) {
+    // ok===false with no redirect means a real network/server error (a bad
+    // session already redirects to login.html from inside GG.api itself).
+    document.getElementById('wizardLoading').innerHTML =
+      '<div class="icon" style="font-size:2rem;margin-bottom:10px">⚠️</div>' +
+      '<p style="margin:0 0 14px">Couldn\'t reach the GlowGuide server.</p>' +
+      '<button class="btn btn-soft btn-sm" onclick="location.reload()">Try again</button>';
+    return;
+  }
+  initProfilePage();
+});
+
+function initProfilePage(){
+  document.getElementById('wizardLoading').classList.add('hidden');
+  document.getElementById('profileForm').classList.remove('hidden');
+
+  const totalSteps = 3;
+  let current = 1;
+  const fill = document.getElementById('progressFill');
+  const backBtn = document.getElementById('backBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function selections(groupId){
+    return Array.from(document.querySelectorAll('#'+groupId+' .chip.selected')).map(c => c.dataset.value);
+  }
+  function singleSelection(groupId){
+    const arr = selections(groupId);
+    return arr.length ? arr[arr.length-1] : '';
+  }
+
+  document.querySelectorAll('.chip-group').forEach(group => {
+    const single = group.id === 'lengthChips' || group.id === 'timeChips' || group.id === 'makeupChips' || group.id === 'hairChips';
+    group.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      if (single) {
+        group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+      } else {
+        chip.classList.toggle('selected');
+      }
+    });
+  });
+
+  function showStep(n){
+    document.querySelectorAll('.step').forEach(s => s.classList.toggle('active', Number(s.dataset.step) === n));
+    fill.style.width = Math.round((n/totalSteps)*100) + '%';
+    backBtn.style.visibility = n === 1 ? 'hidden' : 'visible';
+    nextBtn.textContent = n === totalSteps ? 'Finish Setup ✨' : 'Continue';
+  }
+
+  backBtn.addEventListener('click', () => { if (current > 1){ current--; showStep(current); } });
+
+  nextBtn.addEventListener('click', async () => {
+    if (current === 1){
+      const name = document.getElementById('name').value.trim();
+      if (!name){ document.getElementById('name').focus(); GG.toast('Please tell us your name'); return; }
+    }
+    if (current < totalSteps){ current++; showStep(current); return; }
+
+    const profile = {
+      name: document.getElementById('name').value.trim() || 'Beautiful',
+      goals: selections('goalsChips'),
+      routineLength: singleSelection('lengthChips') || '15 minutes',
+      categories: selections('categoriesChips'),
+      timePref: singleSelection('timeChips') || 'Both',
+      makeupStyle: singleSelection('makeupChips') || 'Natural',
+      hairPref: singleSelection('hairChips') || 'Low-maintenance',
+    };
+
+    nextBtn.disabled = true;
+    const prevText = nextBtn.textContent;
+    nextBtn.textContent = 'Saving…';
+
+    const result = await GG.api.put('/profile', profile);
+
+    if (!result.ok) {
+      GG.toast(result.message || 'Could not save your profile — please try again.');
+      nextBtn.disabled = false;
+      nextBtn.textContent = prevText;
+      return;
+    }
+
+    GG.toast('✨ Profile saved — welcome to GlowGuide!');
+
+    if (sessionStorage.getItem('gg_wants_demo') === '1') {
+      sessionStorage.removeItem('gg_wants_demo');
+      await window.GG_DEMO.load(); // best-effort; dashboard looks fine either way
+    }
+
+    setTimeout(() => { window.location.href = 'dashboard.html'; }, 500);
+  });
+
+  // prefill if editing an existing profile — GG.requireProfile() already
+  // fetched this via GET /api/profile, cached on GG._sessionProfile.
+  const existing = GG._sessionProfile;
+  if (existing && existing.hasProfile){
+    document.getElementById('name').value = existing.name || '';
+    (existing.goals||[]).forEach(v => document.querySelector(`#goalsChips [data-value="${CSS.escape(v)}"]`)?.classList.add('selected'));
+    (existing.categories||[]).forEach(v => document.querySelector(`#categoriesChips [data-value="${CSS.escape(v)}"]`)?.classList.add('selected'));
+    document.querySelector(`#lengthChips [data-value="${CSS.escape(existing.routineLength||'')}"]`)?.classList.add('selected');
+    document.querySelector(`#timeChips [data-value="${CSS.escape(existing.timePref||'')}"]`)?.classList.add('selected');
+    document.querySelector(`#makeupChips [data-value="${CSS.escape(existing.makeupStyle||'')}"]`)?.classList.add('selected');
+    document.querySelector(`#hairChips [data-value="${CSS.escape(existing.hairPref||'')}"]`)?.classList.add('selected');
+  } else if (existing) {
+    // logged in, no profile yet — the account name from registration is
+    // still a sensible starting point for the wizard's name field.
+    document.getElementById('name').value = existing.name || '';
+  }
+
+  showStep(1);
+}
+</script>
+</body>
+</html>
